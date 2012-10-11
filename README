@@ -1,0 +1,88 @@
+nsc - volume 2 (en dev)
+auteur: mycroft@virgaria.org
+
+
+CVS INFORMATIONS:
+
+export CVSROOT=":pserver:anoncvs@cvs.virgaria.org/cvs/nsc"
+cvs login (password is "", just press enter)
+cvs co nsc
+
+COMPILATION:
+# ./configure
+(...)
+# make
+(...)
+#
+
+avec debug:
+# ./configure --enable-debug 
+(...)
+
+sur les netbsd d'epita:
+# ./configure --enable-pie
+(...)
+
+UPDATE:
+
+  * Pour une update, veuillez bien a fermer tout les nsc en route, sinon
+tout changements dans le fichier de configuration seront annulés.
+
+UTILISATION:
+
+cat > ~/.nscrc << EOF
+server ns-server.epita.fr
+port 4242
+login <VOTRELOGINICI>
+pass <VOTREPASSSOCKSICI>
+location <VOTRELOCATIONICI>
+userdata nsc2/dev
+away_message Je suis away.
+lock_message Je fume une cloppe.
+
+contact mycroft
+contact <VOTRELOGINICI>
+contact <VOTREMEILLEURPOTEICI>
+contact <touteslesfilles>
+
+ignore <mechant> 
+ignore <mechant> <message violent>
+EOF
+
+LISTE DE COMMANDES:
+
+nsc# help
+> help          -       help
+> quit          -       exit nsc
+> exit          -       exit nsc
+> reload_conf   -       reload configuration
+> save_conf     -       save configuration
+> reco          -       reconnect
+> deco          -       disconnect
+> connect       -       connect
+> raw           -       send a raw message to server
+> msg           -       send a message to someone
+> query         -       start/end a query with someone
+> state         -       change status
+> whois         -       whois someone
+> list          -       list your friends
+> add_contact   -       add a friend
+> rem_contact   -       remove a friend
+> list_contact  -       list friends
+> add_ignore    -       add a foe
+> rem_ignore    -       remove a foe
+> list_ignore   -       list foes
+> away          -       become away
+> back          -       become actif
+> actif         -       become actif
+> version       -       show version
+> userdata      -       change user data
+nsc# 
+
+TODO:
+
+* Gerer les listes des machines.
+* Fichier de logs
+* Lire la mbox
+* Groupes d'utilisateurs
+* Et encore plein d'autres fonctions

@@ -1,0 +1,23 @@
+#! /bin/sh
+
+CC="@CC@"
+CXX="@CXX@"
+
+c_mode=false
+for i in "$@"; do
+   case $i in
+   *.c)
+      c_mode=true
+      break 
+      ;;
+   esac
+done
+
+if test $c_mode = true; then
+   echo "Running in C mode."
+   exec $CC "$@"
+   exit $?
+fi
+
+exec $CXX "$@"
+exit $?

@@ -1,0 +1,5 @@
+2004-10-23	Florent Thoumie <flz@xbsd.org>
+
+	* take maintainership of nsc.
+	* strip "dst=*" at the end of received messages.
+	* ignore typing events (typing_* and dotnetSoul_*).

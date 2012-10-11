@@ -1,0 +1,56 @@
+#! /bin/sh
+# ltwrap.sh: a wrapper around libtool to fix some of its bugs
+# Written by Raphaël Poss <raph@lrde.epita.fr>
+# Copyright (c) 2002 LRDE
+
+# It happens that libtool always use the C compiler
+# to link shared modules, regardless of the tool indicated
+# in the command line. This is particularly annoying
+# when linking C++ modules, because dependencies against
+# the standard C++ library are not generated.
+
+CC="@CC@"
+CXX="@CXX@"
+
+if test $# -lt 3; then
+   echo "usage: $0 <libtool path> <arguments ...>" >&2
+   exit 1
+fi
+
+ABSDIR=`cd "$1" && pwd`
+CXXWRAP="$ABSDIR"/cxxwrap.sh
+LIBTOOL="$1"/libtool
+shift
+
+mode=c
+for i in "$@"; do
+    case $i in
+    -*) # nothing
+       ;;
+    *.cc | *.cxx | *.cpp | *.C )
+       compiler="$CXX"
+       mode=cpp
+       break
+       ;;
+    $CXX | *++ | *kcc | *icc )
+       compiler="$i"
+       mode=cpp
+       break
+       ;;
+    $CC )
+       break
+       ;;
+    esac
+done
+
+if test $mode = cpp; then
+  CC="$SHELL $CXXWRAP"
+fi
+
+export CC
+exec "$SHELL" "$LIBTOOL" "$@"
+exit $?
+
+# Local Variables:
+# mode: sh
+# End:
